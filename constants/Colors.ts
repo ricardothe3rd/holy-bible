@@ -1,19 +1,44 @@
-const tintColorLight = '#2f95dc';
-const tintColorDark = '#fff';
-
 export default {
   light: {
-    text: '#000',
-    background: '#fff',
-    tint: tintColorLight,
-    tabIconDefault: '#ccc',
-    tabIconSelected: tintColorLight,
+    text: '#1a1a2e',
+    secondaryText: '#6b7280',
+    background: '#faf8f5',
+    surface: '#ffffff',
+    surfaceAlt: '#f3f0eb',
+    tint: '#8B4513',
+    accent: '#C4956A',
+    border: '#e5e0d8',
+    tabIconDefault: '#9ca3af',
+    tabIconSelected: '#8B4513',
+    verseNumber: '#C4956A',
+    headerBg: '#8B4513',
+    headerText: '#ffffff',
+    cardBg: '#ffffff',
+    cardBorder: '#e5e0d8',
+    highlight: '#FFF3CD',
+    error: '#dc2626',
+    success: '#16a34a',
   },
   dark: {
-    text: '#fff',
-    background: '#000',
-    tint: tintColorDark,
-    tabIconDefault: '#ccc',
-    tabIconSelected: tintColorDark,
+    text: '#e8e0d4',
+    secondaryText: '#9ca3af',
+    background: '#0f0f17',
+    surface: '#1a1a2e',
+    surfaceAlt: '#252540',
+    tint: '#C4956A',
+    accent: '#8B4513',
+    border: '#2d2d44',
+    tabIconDefault: '#6b7280',
+    tabIconSelected: '#C4956A',
+    verseNumber: '#C4956A',
+    headerBg: '#1a1a2e',
+    headerText: '#e8e0d4',
+    cardBg: '#1a1a2e',
+    cardBorder: '#2d2d44',
+    highlight: '#3d3520',
+    error: '#ef4444',
+    success: '#22c55e',
   },
-};
+} as const;
+
+export type ThemeColors = typeof import('./Colors').default.light;
