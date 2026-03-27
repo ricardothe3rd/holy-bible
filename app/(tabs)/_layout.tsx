@@ -1,71 +1,101 @@
 import React from 'react';
-import { SymbolView } from 'expo-symbols';
-import { Link, Tabs } from 'expo-router';
-import { Platform, Pressable } from 'react-native';
-
-import Colors from '@/constants/Colors';
-import { useColorScheme } from '@/components/useColorScheme';
-import { useClientOnlyValue } from '@/components/useClientOnlyValue';
+import { Text, Platform } from 'react-native';
+import { Tabs } from 'expo-router';
+import { useThemeColors } from '../../lib/hooks';
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
+  const colors = useThemeColors();
 
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme].tint,
-        // Disable the static render of the header on web
-        // to prevent a hydration error in React Navigation v6.
-        headerShown: useClientOnlyValue(false, true),
-      }}>
+        tabBarActiveTintColor: colors.tint,
+        tabBarInactiveTintColor: colors.tabIconDefault,
+        tabBarStyle: {
+          backgroundColor: colors.surface,
+          borderTopColor: colors.border,
+          height: Platform.OS === 'ios' ? 88 : 64,
+          paddingBottom: Platform.OS === 'ios' ? 28 : 8,
+          paddingTop: 8,
+        },
+        tabBarLabelStyle: {
+          fontSize: 11,
+          fontWeight: '600',
+        },
+        headerStyle: {
+          backgroundColor: colors.headerBg,
+        },
+        headerTintColor: colors.headerText,
+        headerTitleStyle: {
+          fontWeight: '700',
+          fontSize: 18,
+        },
+      }}
+    >
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Tab One',
-          tabBarIcon: ({ color }) => (
-            <SymbolView
-              name={{
-                ios: 'chevron.left.forwardslash.chevron.right',
-                android: 'code',
-                web: 'code',
-              }}
-              tintColor={color}
-              size={28}
-            />
-          ),
-          headerRight: () => (
-            <Link href="/modal" asChild>
-              <Pressable style={{ marginRight: 15 }}>
-                {({ pressed }) => (
-                  <SymbolView
-                    name={{ ios: 'info.circle', android: 'info', web: 'info' }}
-                    size={25}
-                    tintColor={Colors[colorScheme].text}
-                    style={{ opacity: pressed ? 0.5 : 1 }}
-                  />
-                )}
-              </Pressable>
-            </Link>
+          title: 'Read',
+          headerTitle: 'Holy Bible',
+          tabBarIcon: ({ focused }) => (
+            <Text style={{ fontSize: focused ? 22 : 20, opacity: focused ? 1 : 0.6 }}>
+              {'\u{1F4D6}'}
+            </Text>
           ),
         }}
       />
       <Tabs.Screen
-        name="two"
+        name="spaces"
         options={{
-          title: 'Tab Two',
-          tabBarIcon: ({ color }) => (
-            <SymbolView
-              name={{
-                ios: 'chevron.left.forwardslash.chevron.right',
-                android: 'code',
-                web: 'code',
-              }}
-              tintColor={color}
-              size={28}
-            />
+          title: 'Spaces',
+          headerTitle: 'Sacred Spaces',
+          tabBarIcon: ({ focused }) => (
+            <Text style={{ fontSize: focused ? 22 : 20, opacity: focused ? 1 : 0.6 }}>
+              {'\u{1F3DB}'}
+            </Text>
           ),
         }}
       />
+      <Tabs.Screen
+        name="community"
+        options={{
+          title: 'Community',
+          headerTitle: 'Community',
+          tabBarIcon: ({ focused }) => (
+            <Text style={{ fontSize: focused ? 22 : 20, opacity: focused ? 1 : 0.6 }}>
+              {'\u{1F30D}'}
+            </Text>
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="daily"
+        options={{
+          title: 'Daily',
+          headerTitle: 'Daily Verse',
+          tabBarIcon: ({ focused }) => (
+            <Text style={{ fontSize: focused ? 22 : 20, opacity: focused ? 1 : 0.6 }}>
+              {'\u2600\uFE0F'}
+            </Text>
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="more"
+        options={{
+          title: 'More',
+          headerTitle: 'More',
+          tabBarIcon: ({ focused }) => (
+            <Text style={{ fontSize: focused ? 22 : 20, opacity: focused ? 1 : 0.6 }}>
+              {'\u22EF'}
+            </Text>
+          ),
+        }}
+      />
+      {/* Hidden tabs — accessed from More screen */}
+      <Tabs.Screen name="search" options={{ href: null }} />
+      <Tabs.Screen name="bookmarks" options={{ href: null }} />
+      <Tabs.Screen name="prayers" options={{ href: null }} />
     </Tabs>
   );
 }
